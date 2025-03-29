@@ -71,6 +71,16 @@ func (client *CompletionsTag) Create(payload CompletionRequest) (*CompletionResp
     }
 
     var statusCode = resp.StatusCode
+    if statusCode >= 0 && statusCode <= 999 {
+        var data Error
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &ErrorException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
     return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
 }
 
@@ -120,6 +130,16 @@ func (client *CompletionsTag) GetAll(after string, limit int, model string, orde
     }
 
     var statusCode = resp.StatusCode
+    if statusCode >= 0 && statusCode <= 999 {
+        var data Error
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &ErrorException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
     return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
 }
 
@@ -166,6 +186,16 @@ func (client *CompletionsTag) Delete(completionId string) (*CompletionDeleted, e
     }
 
     var statusCode = resp.StatusCode
+    if statusCode >= 0 && statusCode <= 999 {
+        var data Error
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &ErrorException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
     return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
 }
 
