@@ -5,7 +5,7 @@
 
 type CompletionMessageTool struct {
     Role string `json:"role"`
-    Content []string `json:"content"`
+    Content string `json:"content"`
     ToolCallId string `json:"tool_call_id"`
 }
 
