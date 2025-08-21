@@ -1,4 +1,4 @@
-module github.com/sdk-fabric/openai
+module github.com/sdk-fabric/openai-go
 
 go 1.18
 
