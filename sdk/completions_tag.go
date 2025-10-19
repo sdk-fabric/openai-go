@@ -84,6 +84,62 @@ func (client *CompletionsTag) Create(payload CompletionRequest) (*CompletionResp
     return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
 }
 
+// Delete Delete a stored chat completion. Only Chat Completions that have been created with the store parameter set to true can be deleted.
+func (client *CompletionsTag) Delete(completionId string) (*CompletionDeleted, error) {
+    pathParams := make(map[string]interface{})
+    pathParams["completion_id"] = completionId
+
+    queryParams := make(map[string]interface{})
+
+    var queryStructNames []string
+
+    u, err := url.Parse(client.internal.Parser.Url("/v1/chat/completions/:completion_id", pathParams))
+    if err != nil {
+        return nil, err
+    }
+
+    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
+
+
+    req, err := http.NewRequest("DELETE", u.String(), nil)
+    if err != nil {
+        return nil, err
+    }
+
+
+    resp, err := client.internal.HttpClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    respBody, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+        var data CompletionDeleted
+        err := json.Unmarshal(respBody, &data)
+
+        return &data, err
+    }
+
+    var statusCode = resp.StatusCode
+    if statusCode >= 0 && statusCode <= 999 {
+        var data Error
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &ErrorException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
+}
+
 // GetAll List stored Chat Completions. Only Chat Completions that have been stored with the store parameter set to true will be returned.
 func (client *CompletionsTag) GetAll(after string, limit int, model string, order string) (*CompletionCollection, error) {
     pathParams := make(map[string]interface{})
@@ -124,62 +180,6 @@ func (client *CompletionsTag) GetAll(after string, limit int, model string, orde
 
     if resp.StatusCode >= 200 && resp.StatusCode < 300 {
         var data CompletionCollection
-        err := json.Unmarshal(respBody, &data)
-
-        return &data, err
-    }
-
-    var statusCode = resp.StatusCode
-    if statusCode >= 0 && statusCode <= 999 {
-        var data Error
-        err := json.Unmarshal(respBody, &data)
-
-        return nil, &ErrorException{
-            Payload: data,
-            Previous: err,
-        }
-    }
-
-    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
-}
-
-// Delete Delete a stored chat completion. Only Chat Completions that have been created with the store parameter set to true can be deleted.
-func (client *CompletionsTag) Delete(completionId string) (*CompletionDeleted, error) {
-    pathParams := make(map[string]interface{})
-    pathParams["completion_id"] = completionId
-
-    queryParams := make(map[string]interface{})
-
-    var queryStructNames []string
-
-    u, err := url.Parse(client.internal.Parser.Url("/v1/chat/completions/:completion_id", pathParams))
-    if err != nil {
-        return nil, err
-    }
-
-    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
-
-
-    req, err := http.NewRequest("DELETE", u.String(), nil)
-    if err != nil {
-        return nil, err
-    }
-
-
-    resp, err := client.internal.HttpClient.Do(req)
-    if err != nil {
-        return nil, err
-    }
-
-    defer resp.Body.Close()
-
-    respBody, err := io.ReadAll(resp.Body)
-    if err != nil {
-        return nil, err
-    }
-
-    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-        var data CompletionDeleted
         err := json.Unmarshal(respBody, &data)
 
         return &data, err
