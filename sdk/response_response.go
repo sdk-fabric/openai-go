@@ -10,5 +10,6 @@ type ResponseResponse struct {
     IncompleteDetails string `json:"incomplete_details"`
     Object string `json:"object"`
     Output []ResponseResponseOutput `json:"output"`
+    PreviousResponseId string `json:"previous_response_id"`
 }
 
