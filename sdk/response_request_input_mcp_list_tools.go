@@ -6,10 +6,10 @@
 
 // A list of tools available on an MCP server.
 type ResponseRequestInputMcpListTools struct {
-    Type []ResponseMCPTool `json:"type"`
+    Type string `json:"type"`
     Id string `json:"id"`
     ServerLabel string `json:"server_label"`
-    Tools string `json:"tools"`
+    Tools []ResponseMCPTool `json:"tools"`
     Error string `json:"error"`
 }
 
