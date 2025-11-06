@@ -5,9 +5,9 @@
 
 type ResponseRequest struct {
     Background bool `json:"background"`
-    Conversation *ResponseRequestConversation `json:"conversation"`
+    Conversation string `json:"conversation"`
     Include []string `json:"include"`
-    Input string `json:"input"`
+    Input []ResponseRequestInput `json:"input"`
     Instructions string `json:"instructions"`
     MaxOutputTokens string `json:"max_output_tokens"`
     MaxToolCalls string `json:"max_tool_calls"`
@@ -22,9 +22,9 @@ type ResponseRequest struct {
     ServiceTier string `json:"service_tier"`
     Store bool `json:"store"`
     Temperature float64 `json:"temperature"`
-    Text *ResponseText `json:"text"`
+    Text *ResponseRequestText `json:"text"`
     ToolChoice string `json:"tool_choice"`
-    Tools []ResponseTool `json:"tools"`
+    Tools []ResponseRequestTool `json:"tools"`
     TopLogprobs int `json:"top_logprobs"`
     TopP float64 `json:"top_p"`
     Truncation string `json:"truncation"`

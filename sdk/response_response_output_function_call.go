@@ -4,10 +4,10 @@
 
 
 type ResponseResponseOutputFunctionCall struct {
+    Type string `json:"type"`
     Arguments string `json:"arguments"`
     CallId string `json:"call_id"`
     Name string `json:"name"`
-    Type string `json:"type"`
     Id string `json:"id"`
     Status string `json:"status"`
 }
