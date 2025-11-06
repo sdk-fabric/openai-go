@@ -4,7 +4,7 @@
 
 
 type ResponseRequestText struct {
-    Format string `json:"format"`
+    Format *ResponseRequestTextFormat `json:"format"`
     Verbosity string `json:"verbosity"`
 }
 
