@@ -5,7 +5,7 @@
 
 type CompletionMessageAssistant struct {
     Role string `json:"role"`
-    Content []string `json:"content"`
+    Content string `json:"content"`
     Audio string `json:"audio"`
     Name string `json:"name"`
     Refusal string `json:"refusal"`

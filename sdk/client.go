@@ -24,6 +24,10 @@ func (client *Client) Completions() *CompletionsTag {
     return NewCompletionsTag(client.internal.HttpClient, client.internal.Parser)
 }
 
+func (client *Client) Responses() *ResponsesTag {
+    return NewResponsesTag(client.internal.HttpClient, client.internal.Parser)
+}
+
 
 
 
@@ -41,11 +45,11 @@ func NewClient(baseUrl string, credentials sdkgen.CredentialsInterface) (*Client
 func Build(token string) (*Client, error) {
     var credentials = sdkgen.HttpBearer{Token: token}
 
-    return NewClient("https://api.openai.com/", credentials)
+    return NewClient("https://api.openai.com", credentials)
 }
 
 func BuildAnonymous() (*Client, error) {
     var credentials = sdkgen.Anonymous{}
 
-    return NewClient("https://api.openai.com/", credentials)
+    return NewClient("https://api.openai.com", credentials)
 }

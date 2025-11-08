@@ -5,7 +5,7 @@
 
 type CompletionMessageSystem struct {
     Role string `json:"role"`
-    Content []string `json:"content"`
+    Content string `json:"content"`
     Name string `json:"name"`
 }
 
