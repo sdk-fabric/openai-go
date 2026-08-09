@@ -5,7 +5,7 @@
 
 type ResponseRequestInputMessage struct {
     Type string `json:"type"`
-    Content []string `json:"content"`
+    Content string `json:"content"`
     Role string `json:"role"`
 }
 
