@@ -17,14 +17,14 @@ import (
 var client, _ = sdk.Build("[access_token]");
 
 // Creates a model response for the given chat conversation.
-response, err := client.Completions().Create(CompletionRequest{})
+response, err := client.Completions().create(Completion_Request{})
 
 // Delete a stored chat completion.
-response, err := client.Completions().Delete("completion_id")
+response, err := client.Completions().delete("completion_id")
 
 // List stored Chat Completions.
-response, err := client.Completions().Getall("after", 1, "model", "order")
+response, err := client.Completions().getAll("after", 1, "model", "order")
 
 // Creates a model response.
-response, err := client.Responses().Create(ResponseRequest{})
+response, err := client.Responses().create(Response_Request{})
 ```
